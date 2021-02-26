@@ -1,8 +1,9 @@
 import * as React from 'react';
 import axios from 'axios';
 
-import './App.css';
-import DisplayData from './DisplayData';
+import './styles/App.css';
+import DisplayData from './components/DisplayData';
+import apiResource from './data/resource';
 
 function App() {
   const [data, setData] = React.useState();
@@ -10,7 +11,7 @@ function App() {
   const [maxRecords, setMaxRecords] = React.useState();
   const [isLoading, setIsLoading] = React.useState(true);
   const [apiUrl, setApiUrl] = React.useState(
-    `https://data.gov.sg/api/action/datastore_search?resource_id=42ff9cfe-abe5-4b54-beda-c88f9bb438ee&`
+    `https://data.gov.sg/api/action/datastore_search?resource_id=${apiResource[0].resourceID}`
   );
 
   const inputHandler = e => {
