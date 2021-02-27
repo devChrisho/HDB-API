@@ -47,6 +47,15 @@ function App() {
     }
   };
 
+  const fetchData = async () => {
+    apiResource.forEach(ele => {
+      axios(`${apiUrl + ele.resourceID} `)
+    }).then(result => {
+      const records = result.data.result;
+      setData()
+    })
+  }
+
   const fetchTotal = async () => {
     let grandTotal=0
     apiResource.forEach(ele => {
