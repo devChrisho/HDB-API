@@ -1,7 +1,7 @@
 // !exp modules
 import * as React from 'react';
 import axios from 'axios';
-import * as MUI from '@material-ui/core'
+import * as MUI from '@material-ui/core';
 
 // !exp styles
 import './styles/App.css';
@@ -50,13 +50,12 @@ function App() {
         );
         const records = recordsMax.data.result.records;
         setData(d => [...d, ...records]);
-        
       } catch (error) {
         console.log(error);
       }
       setIsLoading(false);
+      console.log(data);
     });
-    
   }, [apiUrl]);
 
   return (
