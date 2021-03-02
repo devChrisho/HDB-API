@@ -1,16 +1,22 @@
 // !exp modules
 import * as React from 'react';
 import * as MUI from '@material-ui/core';
+import styled from 'styled-components';
 
 // !exp custom lib
 import fetchLib from './ultilities/utilLib';
 
-// !exp styles
-import './styles/App.css';
-
 // !exp own components
 import DisplayData from './components/DisplayData';
 import apiResource from './data/resource';
+
+const MainContainer = styled.div`
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
 
 function App() {
   // !var states
@@ -45,7 +51,7 @@ function App() {
   }, [apiUrl]);
 
   return (
-    <div className='App'>
+    <MainContainer>
       <h1>HDB Resale API query</h1>
       <div>
         <label htmlFor='search'>Search:</label>
@@ -70,7 +76,7 @@ function App() {
       ) : (
         <DisplayData maxRecords={maxRecords} data={data} />
       )}
-    </div>
+    </MainContainer>
   );
 }
 
