@@ -1,8 +1,9 @@
 // !exp modules
 import * as React from 'react';
-import axios from 'axios';
-
 import * as MUI from '@material-ui/core';
+
+// !exp custom lib
+import fetchLib from './ultilities/utilLib';
 
 // !exp styles
 import './styles/App.css';
@@ -13,7 +14,7 @@ import apiResource from './data/resource';
 
 function App() {
   // !var states
-  const [data, setData] = React.useState();
+  const [data, setData] = React.useState([]);
   const [query, setQuery] = React.useState(null);
   const [maxRecords, setMaxRecords] = React.useState();
   const [isLoading, setIsLoading] = React.useState(true);
@@ -29,7 +30,7 @@ function App() {
 
   const onKeyPressHandler = event => {
     const keyPress = event.key;
-    if (keyPress == 'Enter') {
+    if (keyPress === 'Enter') {
       search(query);
     }
   };
@@ -38,26 +39,10 @@ function App() {
     console.log(`Searching for ${searchString}`);
   };
 
-  // React.useEffect(() => {
-  //   let grandTotal = 0;
-  //   apiResource.forEach(async dataset => {
-  //     try {
-  //       const result = await axios(apiUrl + dataset.resourceID);
-  //       const total = result.data.result.total;
-  //       grandTotal += total;
-  //       setMaxRecords(grandTotal);
-  //       const recordsMax = await axios(
-  //         apiUrl + dataset.resourceID + `&limit=${total}`
-  //       );
-  //       const records = recordsMax.data.result.records;
-  //       setData(d => [...d, ...records]);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //     setIsLoading(false);
-  //     console.log(data);
-  //   });
-  // }, [apiUrl]);
+  React.useEffect(() => {
+    // this custom function fetches the total records per recourceid and adds the records to data state
+    fetchLib.getData(apiResource, apiUrl, setMaxRecords, setData, setIsLoading);
+  }, [apiUrl]);
 
   return (
     <div className='App'>
@@ -81,7 +66,7 @@ function App() {
       </div>
 
       {isLoading ? (
-        <p>Loading...</p>
+        <MUI.CircularProgress />
       ) : (
         <DisplayData maxRecords={maxRecords} data={data} />
       )}
