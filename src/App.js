@@ -17,50 +17,47 @@ function App() {
   const [query, setQuery] = React.useState(null);
   const [maxRecords, setMaxRecords] = React.useState();
   const [isLoading, setIsLoading] = React.useState(true);
+
+  // !var
   const apiUrl = `https://data.gov.sg/api/action/datastore_search?resource_id=`;
 
   // !exp handlers
-  const inputHandler = e => {
-    const inputVal = e.target.value;
-    setQuery(inputVal);
+  const onChangeHandler = event => {
+    const value = event.target.value;
+    setQuery(value);
   };
 
-  const enterHandler = e => {
-    if (e.which == 13) {
-
+  const onKeyPressHandler = event => {
+    const keyPress = event.key;
+    if (keyPress == 'Enter') {
+      search(query);
     }
   };
 
-  const buttonHandler = () => {
- 
+  const search = searchString => {
+    console.log(`Searching for ${searchString}`);
   };
 
-  // !exp fetch API
-
-
-
-  React.useEffect(() => {
-
-    let grandTotal = 0;
-    apiResource.forEach(async dataset => {
-      try {
-        const result = await axios(apiUrl + dataset.resourceID);
-        const total = result.data.result.total;
-        grandTotal += total;
-        setMaxRecords(grandTotal);
-        const recordsMax = await axios(
-          apiUrl + dataset.resourceID + `&limit=${total}`
-        );
-        const records = recordsMax.data.result.records;
-        setData(d => [...d, ...records]);
-      } catch (error) {
-        console.log(error);
-      }
-      setIsLoading(false);
-      console.log(data);
-    });
-  }, [apiUrl]);
-
+  // React.useEffect(() => {
+  //   let grandTotal = 0;
+  //   apiResource.forEach(async dataset => {
+  //     try {
+  //       const result = await axios(apiUrl + dataset.resourceID);
+  //       const total = result.data.result.total;
+  //       grandTotal += total;
+  //       setMaxRecords(grandTotal);
+  //       const recordsMax = await axios(
+  //         apiUrl + dataset.resourceID + `&limit=${total}`
+  //       );
+  //       const records = recordsMax.data.result.records;
+  //       setData(d => [...d, ...records]);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //     setIsLoading(false);
+  //     console.log(data);
+  //   });
+  // }, [apiUrl]);
 
   return (
     <div className='App'>
@@ -70,11 +67,17 @@ function App() {
         <input
           type='text'
           name='search '
-          onChange={inputHandler}
+          onChange={onChangeHandler}
+          onKeyPress={onKeyPressHandler}
           autoComplete='off'
-          onKeyPress={enterHandler}
         />
-        <button onClick={buttonHandler}>Search</button>
+        <button
+          onClick={() => {
+            search(query);
+          }}
+        >
+          Search
+        </button>
       </div>
 
       {isLoading ? (
