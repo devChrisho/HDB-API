@@ -74,7 +74,7 @@ function App() {
       {isLoading ? (
         <MUI.CircularProgress />
       ) : (
-        <DisplayData maxRecords={maxRecords} data={data} />
+          <DisplayData maxRecords={maxRecords} data={data} isLoading={isLoading}/>
       )}
     </MainContainer>
   );
