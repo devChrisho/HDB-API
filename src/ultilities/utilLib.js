@@ -2,7 +2,7 @@ import axios from 'axios';
 import { v4 } from 'uuid';
 
 const fetchLib = {
-  getData: (apiObj, apiUrl, setMaxRecords, setData, setIsLoading) => {
+  getData: (apiObj, apiUrl, setMaxRecords, data, setData, setIsLoading) => {
     let grandTotal = 0;
 
     apiObj.forEach(async dataset => {
@@ -17,8 +17,8 @@ const fetchLib = {
         );
         const records = recordsMax.data.result.records;
         
-        const changed = records.map(item => {
-          const uuidv4 = v4()
+        const changed =  records.map( item => {
+          const uuidv4 =  v4()
 
           const obj = {
             ...item,
@@ -33,7 +33,9 @@ const fetchLib = {
         console.log(error);
       }
       setIsLoading(false);
+   
     });
+    
   },
 };
 

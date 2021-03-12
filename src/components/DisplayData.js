@@ -7,7 +7,7 @@ const currencyFormatter = new Intl.NumberFormat('en-SG', {
 });
 
 const columns = [
-  // { field: 'id', headerName: 'id', width: 70 },
+  { field: 'id', headerName: 'id', width: 70 },
   { field: 'town', headerName: 'Town', width: 140 },
   {
     field: 'model',
@@ -32,7 +32,7 @@ const columns = [
     field: 'resale_price',
     headerName: 'Price',
     width: 150,
-    valueFormatter: ({ value }) => currencyFormatter.format(Number(value)),
+    // valueFormatter: ({ value }) => currencyFormatter.format(Number(value)),
   },
   // { field:  , headerName:   , width:    },
   // { field:  , headerName:   , width:    },
@@ -44,8 +44,7 @@ const columns = [
 ];
 
 export default function DisplayData({ maxRecords, data, isLoading }) {
-  const propertyNames = Object.keys(data[0]);
-  console.log(propertyNames);
+  
   return (
     <>
       <div>
@@ -60,7 +59,6 @@ export default function DisplayData({ maxRecords, data, isLoading }) {
             pageSize={10}
             autoHeight={true}
             loading={isLoading}
-            components={{Toolbar: GridToolbar}}
           />
         </div>
       </div>

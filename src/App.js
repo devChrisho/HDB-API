@@ -45,9 +45,11 @@ function App() {
     console.log(`Searching for ${searchString}`);
   };
 
-  React.useEffect(() => {
+  React.useEffect( () => {
     // this custom function fetches the total records per recourceid and adds the records to data state
-    fetchLib.getData(apiResource, apiUrl, setMaxRecords, setData, setIsLoading);
+     fetchLib.getData(apiResource, apiUrl, setMaxRecords, data, setData, setIsLoading);
+
+
   }, [apiUrl]);
 
   return (
